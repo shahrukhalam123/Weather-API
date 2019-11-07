@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>api weather data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+     </style>
+</head>
+<body>
+    <center style="margin-top: 100px;">
+    <input type="text" id="chk" placeholder="Enter Your City Name"></input>
+    <button id="btn-chk" class="btn-success">Check the Weather</button>
+    </center>
+       
+    <div id="datashow"></div>
+      
+     <script>
+         document.getElementById("btn-chk").onclick = () => {
+            let city=document.getElementById("chk").value;
+   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=ec0ac2175d0f19c96b9a586197194ac2`)
+   .then(data=>{
+            return data.json()
+             
+        }).then(data2 =>{
+           console.log(data2.name)
+           console.log(data2.main.temp)
+           console.log(data2.weather[0].description)
+           
+
+           document.getElementById("datashow").innerHTML=`
+                
+
+                <div class="container">
+    <div class="widget">
+      <div class="details">
+        <div class="temperature">${data2.main.temp}°</div>
+        <div class="summary">
+          <p class="summaryText">${data2.weather[0].description}</p>
+        </div>
+        <div class="precipitation">Precipitation: ${data2.wind.deg}</div>
+        <div class="wind">Wind: ${data2.wind.speed}  </div>
+      </div>
+      <div class="pictoBackdrop"></div>
+      <div class="pictoFrame"></div>
+      <div class="pictoCloudBig"></div>
+      <div class="pictoCloudFill"></div>
+      <div class="pictoCloudSmall"></div>
+      <div class="iconCloudBig"></div>
+      <div class="iconCloudFill"></div>
+      <div class="iconCloudSmall"></div>
+    </div>
+  </div>
+            `
+        })
+     }
+    </script>
+
+
+
+
+
+
+    
+    
+</body>
+</html>
